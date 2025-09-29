@@ -5,4 +5,4 @@ import kotlinx.coroutines.flow.Flow
 
 interface TrackRepository {
     fun searchTracks(expression: String): Flow<List<Track>>
-} 
+}

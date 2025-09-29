@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/mback"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarMediateka"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/primary_indent_62"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/search" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/settings_switch"
+        style="@style/MaterialTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="@string/dk_theme"
+
+        app:thumbTint="@color/thumb_color"
+        app:trackTint="@color/track_color" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/btn_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/MaterialTextViewStyle"
+        android:drawableEnd="@drawable/share"
+        android:text="@string/share" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/btn_contact_support"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/MaterialTextViewStyle"
+        android:drawableEnd="@drawable/help"
+        android:text="@string/help" />
+        
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/btn_terms_of_use"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/MaterialTextViewStyle"
+        android:drawableEnd="@drawable/arl"
+        android:text="@string/user_agr" />
+
+</LinearLayout> 

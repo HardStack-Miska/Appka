@@ -18,4 +18,4 @@ class TrackRepositoryImpl(
             val response = apiService.search(expression)
             emit(response.results.map { trackDto -> trackMapper.map(trackDto) })
         }.flowOn(Dispatchers.IO)
-} 
+}

@@ -38,9 +38,7 @@ class SearchViewModel(
         searchJob = viewModelScope.launch {
             searchTracksUseCase.execute(query)
                 .onStart { _searchState.value = SearchState.Loading }
-                .catch {
-                    _searchState.value = SearchState.Error
-                }
+                .catch { _searchState.value = SearchState.Error }
                 .collect { tracks ->
                     if (tracks.isNotEmpty()) {
                         _searchState.value = SearchState.Success(tracks)

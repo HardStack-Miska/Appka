@@ -3,8 +3,6 @@ package com.example.playlistmaker.features.search.presentation.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -27,6 +25,10 @@ import com.example.playlistmaker.features.search.presentation.viewmodel.SearchSt
 import com.example.playlistmaker.features.search.presentation.viewmodel.SearchViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.gson.Gson
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -47,13 +49,13 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
 
     private val viewModel: SearchViewModel by viewModel()
-    private val handler = Handler(Looper.getMainLooper())
-    private var searchRunnable: Runnable? = null
-    private var currentDebounceText = ""
+    private var searchJob: Job? = null
+    private var isClickAllowed = true
 
     companion object {
         private const val SEARCH_QUERY_KEY = "search_query"
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,15 +89,13 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         historyAdapter = SearchAdapter(emptyList()) { track ->
-            viewModel.addTrackToHistory(track)
-            openPlayerActivity(track)
+            handleTrackClick(track)
         }
         historyRecyclerView.layoutManager = LinearLayoutManager(this)
         historyRecyclerView.adapter = historyAdapter
 
         searchAdapter = SearchAdapter(emptyList()) { track ->
-            viewModel.addTrackToHistory(track)
-            openPlayerActivity(track)
+            handleTrackClick(track)
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = searchAdapter
@@ -105,12 +105,15 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s.isNullOrEmpty()) {
+                    searchJob?.cancel()
                     viewModel.loadSearchHistory()
                 } else {
-                    currentDebounceText = s.toString()
-                    handler.removeCallbacksAndMessages(null)
-                    searchRunnable = Runnable { viewModel.searchTracks(currentDebounceText) }
-                    handler.postDelayed(searchRunnable!!, SEARCH_DEBOUNCE_DELAY)
+                    val query = s.toString()
+                    searchJob?.cancel()
+                    searchJob = lifecycleScope.launch {
+                        delay(SEARCH_DEBOUNCE_DELAY)
+                        viewModel.searchTracks(query)
+                    }
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -120,7 +123,7 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 viewModel.searchTracks(inputEditText.text.toString().trim())
-                handler.removeCallbacksAndMessages(null)
+                searchJob?.cancel()
                 true
             } else {
                 false
@@ -128,7 +131,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         retryButton.setOnClickListener {
-            handler.removeCallbacksAndMessages(null)
+            searchJob?.cancel()
             viewModel.retrySearch()
         }
 
@@ -141,7 +144,7 @@ class SearchActivity : AppCompatActivity() {
         })
 
         clearIcon.setOnClickListener {
-            handler.removeCallbacksAndMessages(null)
+            searchJob?.cancel()
             inputEditText.text.clear()
             hideKeyboard()
             viewModel.loadSearchHistory()
@@ -234,6 +237,17 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        handler.removeCallbacksAndMessages(null)
+        searchJob?.cancel()
     }
-} 
+
+    private fun handleTrackClick(track: Track) {
+        if (!isClickAllowed) return
+        isClickAllowed = false
+        lifecycleScope.launch {
+            viewModel.addTrackToHistory(track)
+            openPlayerActivity(track)
+            delay(CLICK_DEBOUNCE_DELAY)
+            isClickAllowed = true
+        }
+    }
+}

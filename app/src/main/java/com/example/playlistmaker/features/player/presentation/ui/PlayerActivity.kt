@@ -1,8 +1,6 @@
 package com.example.playlistmaker.features.player.presentation.ui
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,17 +20,6 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var track: Track
 
     private val viewModel: PlayerViewModel by viewModel ()
-    private val handler = Handler(Looper.getMainLooper())
-    private val updateTimeRunnable = object : Runnable {
-        override fun run() {
-            viewModel.updateCurrentTime()
-            handler.postDelayed(this, 300L)
-        }
-    }
-
-    companion object {
-        private const val UPDATE_TIME_DELAY = 300L
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,31 +84,20 @@ class PlayerActivity : AppCompatActivity() {
 
                 PlaybackState.PLAYING -> {
                     playButton.setImageResource(R.drawable.btn_pause)
-                    startTimeUpdater()
                 }
 
                 PlaybackState.PAUSED -> {
                     playButton.setImageResource(R.drawable.btn_play)
-                    stopTimeUpdater()
                 }
 
                 PlaybackState.COMPLETED -> {
                     playButton.setImageResource(R.drawable.btn_play)
-                    stopTimeUpdater()
                 }
             }
 
 
             currentTimeTextView.text = state.currentTime
         }
-    }
-
-    private fun startTimeUpdater() {
-        handler.postDelayed(updateTimeRunnable, UPDATE_TIME_DELAY)
-    }
-
-    private fun stopTimeUpdater() {
-        handler.removeCallbacks(updateTimeRunnable)
     }
 
     private fun setupBackButton() {
@@ -135,8 +111,4 @@ class PlayerActivity : AppCompatActivity() {
         viewModel.pausePlayer()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        stopTimeUpdater()
-    }
 } 

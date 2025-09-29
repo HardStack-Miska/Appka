@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Playlist Maker</string>
+    <string name="search">Поиск</string>
+    <string name="media">Медиатека</string>
+    <string name="settings">Настройки</string>
+    <string name="dk_theme">Темая тема</string>
+    <string name="share">Поделиться приложением</string>
+    <string name="help">Написать в поддержку</string>
+    <string name="user_agr">Пользовательское соглашение</string>
+    <string name="tab_playlists">Плейлисты</string>
+    <string name="tab_favorites">Избранные треки</string>
+    <string name="no_playlists">Вы не создали\nни одного плейлиста</string>
+    <string name="media_is_empty">Ваша медиатека пуста</string>
+    <string name="new_playlist">Новый плейлист</string>
+
+    <string name="share_via">Поделиться через...</string>
+
+    <string name="saved_txt">SAVED_TEXT</string>
+
+    <string name="no_results">Ничего не нашлось</string>
+    <string name="error_message">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="vi_search">Вы искали</string>
+    <string name="clear_history">Очистить историю</string>
+    <string name="player_track_time">Длительность</string>
+    <string name="player_track_album">Альбом</string>
+    <string name="player_track_year">Год</string>
+    <string name="player_track_genre">Жанр</string>
+    <string name="player_track_country">Страна</string>
+    <string name="std_time" >00:00</string>
+    <string name="retry">Обновить</string>
+
+    <string name="course_url">https://practicum.yandex.kz/profile/android-developer-plus/</string>
+    <string name="terms_url" >https://yandex.ru/legal/practicum_offer/</string>
+    <string name="sup_mail" >OKTAHOB@yandex.kz</string>
+    <string name="message_to_sup_h">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="message_to_sup">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+</resources>

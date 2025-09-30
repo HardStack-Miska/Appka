@@ -25,7 +25,7 @@ class PlayerFragment : Fragment() {
     private val viewModel: PlayerViewModel by viewModel()
     companion object {
         private const val TRACK_JSON_KEY = "track_json"
-        
+
         fun newInstance(trackJson: String): PlayerFragment {
             return PlayerFragment().apply {
                 arguments = Bundle().apply {

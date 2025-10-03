@@ -28,7 +28,8 @@ class SearchHistoryRepositoryImpl(
         } else {
             val favoriteIds = favoritesDao.getFavoriteTrackIds().toSet()
             history.onEach { track ->
-                if (track.artworkUrl512.isEmpty()) {
+                val artwork: String? = track.artworkUrl512
+                if (artwork.isNullOrEmpty()) {
                     track.artworkUrl512 = track.artworkUrl100.replace("100x100", "512x512")
                 }
                 track.isFavorite = favoriteIds.contains(track.trackId)

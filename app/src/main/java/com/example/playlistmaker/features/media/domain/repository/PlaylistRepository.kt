@@ -1,0 +1,11 @@
+package com.example.playlistmaker.features.media.domain.repository
+
+import com.example.playlistmaker.features.media.domain.model.Playlist
+import kotlinx.coroutines.flow.Flow
+
+interface PlaylistRepository {
+    suspend fun createPlaylist(playlist: Playlist): Long
+    suspend fun updatePlaylist(playlist: Playlist)
+    fun observePlaylists(): Flow<List<Playlist>>
+    suspend fun getPlaylistByName(name: String): Playlist?
+}

@@ -8,4 +8,5 @@ interface PlaylistRepository {
     suspend fun updatePlaylist(playlist: Playlist)
     fun observePlaylists(): Flow<List<Playlist>>
     suspend fun getPlaylistByName(name: String): Playlist?
+    suspend fun getPlaylists(): List<Playlist>
 }

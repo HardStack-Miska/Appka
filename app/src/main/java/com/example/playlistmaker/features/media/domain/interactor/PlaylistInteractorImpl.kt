@@ -46,4 +46,8 @@ class PlaylistInteractorImpl(
     override suspend fun getPlaylistByName(name: String): Playlist? {
         return playlistRepository.getPlaylistByName(name.trim())
     }
+
+    override suspend fun getPlaylists(): List<Playlist> {
+        return playlistRepository.getPlaylists()
+    }
 }

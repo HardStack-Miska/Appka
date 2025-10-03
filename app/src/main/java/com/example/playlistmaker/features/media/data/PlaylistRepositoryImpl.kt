@@ -31,4 +31,10 @@ class PlaylistRepositoryImpl(
             PlaylistMapper.mapToDomain(entity)
         }
     }
+
+    override suspend fun getPlaylists(): List<Playlist> {
+        return playlistsDao.getPlaylists().map { entity ->
+            PlaylistMapper.mapToDomain(entity)
+        }
+    }
 }

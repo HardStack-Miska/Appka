@@ -8,4 +8,5 @@ interface PlaylistInteractor {
     fun observePlaylists(): Flow<List<Playlist>>
     suspend fun updatePlaylist(playlist: Playlist)
     suspend fun getPlaylistByName(name: String): Playlist?
+    suspend fun getPlaylists(): List<Playlist>
 }

@@ -24,6 +24,8 @@
     <string name="playlist_created_message">Playlist %1$s created</string>
     <string name="back">Back</string>
     <string name="playlist_creation_error">Failed to create playlist</string>
+    <string name="track_added_to_playlist">Added to playlist %1$s</string>
+    <string name="track_already_in_playlist">Track already added to playlist %1$s</string>
 
     <string name="share_via">Share via...</string>
 

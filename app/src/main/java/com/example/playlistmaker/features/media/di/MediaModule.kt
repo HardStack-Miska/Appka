@@ -20,7 +20,7 @@ import org.koin.dsl.module
 
 val mediaModule = module {
     single<FavoritesRepository> { FavoritesRepositoryImpl(get()) }
-    single<PlaylistRepository> { PlaylistRepositoryImpl(get()) }
+    single<PlaylistRepository> { PlaylistRepositoryImpl(get(), get()) }
     single<PlaylistCoverStorage> { PlaylistCoverStorageImpl(androidContext()) }
 
     single<FavoritesInteractor> { FavoritesInteractorImpl(get()) }

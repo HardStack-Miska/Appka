@@ -3,6 +3,7 @@ package com.example.playlistmaker.features.media.domain.interactor
 import com.example.playlistmaker.features.media.domain.model.Playlist
 import com.example.playlistmaker.features.media.domain.repository.PlaylistCoverStorage
 import com.example.playlistmaker.features.media.domain.repository.PlaylistRepository
+import com.example.playlistmaker.features.search.domain.model.Track
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -49,5 +50,9 @@ class PlaylistInteractorImpl(
 
     override suspend fun getPlaylists(): List<Playlist> {
         return playlistRepository.getPlaylists()
+    }
+
+    override suspend fun addTrackToPlaylist(playlistId: Long, track: Track) {
+        playlistRepository.addTrackToPlaylist(playlistId, track)
     }
 }

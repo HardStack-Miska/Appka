@@ -86,13 +86,7 @@ class PlaylistFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val newPlaylistButton: MaterialButton = view.findViewById(R.id.newPlaylistButton)
-        newPlaylistButton.setOnClickListener {
-            findNavController().navigate(R.id.action_mediaLibraryFragment_to_createPlaylistFragment)
-        }
-    }
+
 
     companion object {
         fun newInstance(): PlaylistFragment = PlaylistFragment()

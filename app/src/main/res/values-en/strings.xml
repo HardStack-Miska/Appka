@@ -12,6 +12,7 @@
     <string name="tab_favorites">Liked tracks</string>
     <string name="no_playlists">You not create playlist still</string>
     <string name="media_is_empty">Media is empty</string>
+    <string name="add_to_playlist">Add to playlist</string>
     <string name="new_playlist">New playlist</string>
     <string name="playlist_name">Playlist name</string>
     <string name="playlist_description">Description</string>

@@ -26,7 +26,7 @@ class PlaylistsAdapter : ListAdapter<Playlist, PlaylistsAdapter.PlaylistViewHold
 
     class PlaylistViewHolder(
         view: View
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(view) {
 
         private val coverImage: ImageView = view.findViewById(R.id.ivPlaylistCover)
         private val titleText: TextView = view.findViewById(R.id.tvPlaylistName)
@@ -49,7 +49,7 @@ class PlaylistsAdapter : ListAdapter<Playlist, PlaylistsAdapter.PlaylistViewHold
 
             titleText.text = playlist.name
             trackCountText.text = context.resources.getQuantityString(
-                R.plurals.playlist_track_count,
+                R.plurals.tracks,
                 playlist.trackCount,
                 playlist.trackCount
             )

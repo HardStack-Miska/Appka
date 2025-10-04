@@ -67,12 +67,12 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         setupViews()
         setupRecyclerView()
         setupListeners()
         observeViewModel()
-        
+
         // Restore saved state
         val savedQuery = savedInstanceState?.getString(SEARCH_QUERY_KEY, "")
         if (!savedQuery.isNullOrEmpty()) {
@@ -251,4 +251,4 @@ class SearchFragment : Fragment() {
         trackClickJob?.cancel()
         trackClickJob = null
     }
-} 
+}
